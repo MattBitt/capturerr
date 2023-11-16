@@ -13,7 +13,8 @@ dist
 .env
 *Zone.Identifier
 .goby-app/**
-
+**/public/*
+**/.output/*
 
 
 ### Python template
