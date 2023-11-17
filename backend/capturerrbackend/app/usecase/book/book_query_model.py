@@ -1,0 +1,36 @@
+from typing import Optional, cast
+
+from pydantic import BaseModel, ConfigDict, Field
+
+from capturerrbackend.app.domain.book.book import Book
+from capturerrbackend.app.usecase.user.user_query_model import UserReadModel
+
+
+class BookReadModel(BaseModel):
+    """BookReadModel represents data structure as a read model."""
+
+    model_config = ConfigDict(from_attributes=True)
+    id: str = Field(example="vytxeTZskVKR7C7WgdSP3d")
+    isbn: str = Field(example="978-0321125217")
+    title: str = Field(
+        example="Domain-Driven Design: Tackling Complexity in the Heart of Softwares",
+    )
+    page: int = Field(ge=0, example=320)
+    user_id: str = Field(example="vytxeTZskVKR7C7WgdSP3d")
+    read_page: int = Field(ge=0, example=120)
+    created_at: int = Field(example=1136214245000)
+    updated_at: int = Field(example=1136214245000)
+    user: Optional[UserReadModel] = Field(default=None)
+
+    @staticmethod
+    def from_entity(book: Book) -> "BookReadModel":
+        return BookReadModel(
+            id=book.book_id,
+            isbn=book.isbn.value,
+            title=book.title,
+            page=book.page,
+            user_id=book.user_id,
+            read_page=book.read_page,
+            created_at=cast(int, book.created_at),
+            updated_at=cast(int, book.updated_at),
+        )
