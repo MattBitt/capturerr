@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useTopnav } from '../composables/topnav'
+import { storeToRefs } from 'pinia' // import storeToRefs helper hook from pinia
+import { useAuthStore } from '~/stores/auth' // import the auth store we just created
 
 export type LayoutDisplay =
   | 'condensed'
@@ -57,6 +59,10 @@ const mainClass = computed(() => {
 
   return list
 })
+
+const { authenticateUser } = useAuthStore() // use authenticateUser action from  auth store
+
+const { authenticated, user } = storeToRefs(useAuthStore()) // make authenticated state reactive with storeToRefs
 </script>
 
 <template>
@@ -104,19 +110,31 @@ const mainClass = computed(() => {
           </div>
           <template #toolbar>
             <div v-if="toolbarEnabled">
-              <div class="flex items-center justify-end gap-4 md:gap-2">
-                <!-- <template v-for="tool of config?.toolbar?.tools">
-                  <component
-                    :is="resolveComponentOrNative(tool.component)"
-                    v-if="tool.component"
-                    :key="tool.component"
-                    v-bind="tool.props"
-                  />
-                </template> -->
-                <DemoToolbarSearch />
-                <DemoToolbarNotifications />
-                <DemoToolbarLanguage />
-                <DemoAccountMenu />
+              <div v-if="authenticated">
+                <div class="flex items-center justify-end gap-4 md:gap-2">
+                  <DemoToolbarSearch />
+                  <DemoToolbarNotifications />
+                  <DemoToolbarLanguage />
+                  <DemoAccountMenu />
+                  <BaseButton
+                    shape="curved"
+                    color="primary"
+                    to="/auth/logout"
+                    class="ltablet:!flex !hidden lg:!flex"
+                  >
+                    Logout
+                  </BaseButton>
+                </div>
+              </div>
+              <div v-else class="flex items-center justify-end gap-4 md:gap-2">
+                <BaseButton
+                  shape="curved"
+                  color="primary"
+                  to="/auth/login-1"
+                  class="ltablet:!flex !hidden lg:!flex"
+                >
+                  Login
+                </BaseButton>
               </div>
             </div>
           </template>

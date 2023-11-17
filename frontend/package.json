@@ -29,6 +29,7 @@
     "@iconify/json": "2.2.113",
     "@types/fs-extra": "11.0.1",
     "@typescript-eslint/eslint-plugin": "6.6.0",
+    "@nuxt/kit":"*",
     "eslint": "8.49.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-prettier-vue": "5.0.0",

@@ -31,4 +31,14 @@ export default defineNuxtConfig({
   // router: {
   //   middleware: ['auth'],
   // },
+  // this is for reverse proxy
+  vite: {
+    server: {
+      hmr: {
+        protocol: 'wss',
+        clientPort: 443,
+        path: 'hmr/',
+      },
+    },
+  },
 })
