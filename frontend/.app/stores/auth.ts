@@ -31,7 +31,7 @@ export const useAuthStore = defineStore('auth', {
     }: UserPayloadInterface) {
       // useFetch from nuxt 3
       const { data, pending }: any = await useFetch(
-        'http://172.29.48.119:8000/api/users/login',
+        'https://bittfurst.xyz/api/users/login',
         {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
@@ -61,7 +61,7 @@ export const useAuthStore = defineStore('auth', {
     }: NewUserInterface) {
       // useFetch from nuxt 3
       const { data, pending }: any = await useFetch(
-        'http://172.29.48.119:8000/api/users',
+        'https://bittfurst.xyz/api/users',
         {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },

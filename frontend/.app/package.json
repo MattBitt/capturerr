@@ -25,6 +25,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@prisma/client": "5.5.2",
     "next-auth": "4.21.1",
+    "nuxi": "3.9.1",
     "pinia": "^2.1.7"
   }
 }

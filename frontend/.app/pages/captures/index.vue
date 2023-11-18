@@ -21,7 +21,7 @@ definePageMeta({
 })
 const token = useStorage('token', '')
 const { data, error, pending }: any = await useFetch(
-  'http://172.29.48.119:8000/api/me/captures',
+  'https://bittfurst.xyz/api/me/captures',
   {
     method: 'GET',
     headers: {

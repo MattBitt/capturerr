@@ -13,6 +13,7 @@ RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch
 # Install and build the app
 COPY . .
 RUN pnpm install
+ENV NODE_OPTIONS=--max-old-space-size=1024
 RUN pnpm build
 
 # Production stage

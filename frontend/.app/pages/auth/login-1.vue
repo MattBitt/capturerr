@@ -63,7 +63,7 @@ const {
   validationSchema,
   initialValues,
 })
-const baseUrl = 'http://172.29.48.119:8000/api'
+const baseUrl = 'https://bittfurst.xyz/api'
 const router = useRouter()
 const toaster = useToaster()
 

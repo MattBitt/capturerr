@@ -30,6 +30,7 @@ services:
     volumes:
      - ./:/var/www
      - ./nginx/:/etc/nginx/conf.d/
+     - /home/matt/.ssl:/etc/nginx/certs
     networks:
       - app-network
 
