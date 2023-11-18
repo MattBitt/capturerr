@@ -6,6 +6,8 @@ const { authenticateUser } = useAuthStore() // use authenticateUser action from 
 
 const { authenticated, user } = storeToRefs(useAuthStore()) // make authenticated state reactive with storeToRefs
 const { open } = usePanels()
+const config = useRuntimeConfig()
+console.log('Runtime config:', config)
 
 definePageMeta({
   title: 'Capturerr',
@@ -14,11 +16,13 @@ definePageMeta({
 
 <template>
   <div>
-    <h1>Index Page</h1>
+    <div class="flex justify-center">
+      <CapturerrLogo />
+    </div>
     <div>
       <BaseButton @click="open('mypanel')">Open Panel</BaseButton>
     </div>
-    <CapturerrLogo />
+
     <div v-if="authenticated">
       <UserLogo />
     </div>

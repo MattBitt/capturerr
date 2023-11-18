@@ -68,79 +68,6 @@ const { authenticated, user } = storeToRefs(useAuthStore()) // make authenticate
 <template>
   <div>
     <div class="dark:bg-muted-900 bg-muted-50 pb-20">
-      <slot name="navigation">
-        <TairoTopnavNavigation
-          v-if="topnavEnabled"
-          :display="props.display"
-          position="fixed"
-        >
-          <div
-            v-if="config?.navigation?.logo?.component"
-            class="flex h-16 w-full items-center gap-x-4"
-          >
-            <NuxtLink to="/" class="flex items-center justify-center">
-              <component
-                :is="
-                  resolveComponentOrNative(config?.navigation.logo.component)
-                "
-                v-bind="config?.navigation.logo.props"
-              ></component>
-            </NuxtLink>
-            <BaseHeading
-              v-if="config?.toolbar?.showTitle"
-              as="h1"
-              size="lg"
-              weight="light"
-              class="text-muted-800 hidden dark:text-white md:block"
-            >
-              <slot name="title">{{ route.meta.title }}</slot>
-            </BaseHeading>
-            <component
-              v-if="config?.navigation?.header?.component"
-              :is="
-                resolveComponentOrNative(config?.navigation?.header?.component)
-              "
-              v-bind="config?.navigation?.header?.props"
-            ></component>
-            <div class="flex items-center justify-center md:hidden">
-              <button type="button" @click="isMobileOpen = true">
-                <Icon name="lucide:menu" class="text-muted-400 h-6 w-6" />
-              </button>
-            </div>
-          </div>
-          <template #toolbar>
-            <div v-if="toolbarEnabled">
-              <div v-if="authenticated">
-                <div class="flex items-center justify-end gap-4 md:gap-2">
-                  <DemoToolbarSearch />
-                  <DemoToolbarNotifications />
-                  <DemoToolbarLanguage />
-                  <DemoAccountMenu />
-                  <BaseButton
-                    shape="curved"
-                    color="primary"
-                    to="/auth/logout"
-                    class="ltablet:!flex !hidden lg:!flex"
-                  >
-                    Logout
-                  </BaseButton>
-                </div>
-              </div>
-              <div v-else class="flex items-center justify-end gap-4 md:gap-2">
-                <BaseButton
-                  shape="curved"
-                  color="primary"
-                  to="/auth/login-1"
-                  class="ltablet:!flex !hidden lg:!flex"
-                >
-                  Login
-                </BaseButton>
-              </div>
-            </div>
-          </template>
-        </TairoTopnavNavigation>
-      </slot>
-
       <div :class="mainClass">
         <div
           class="pt-40 md:pt-36"
@@ -157,6 +84,48 @@ const { authenticated, user } = storeToRefs(useAuthStore()) // make authenticate
           <slot />
         </div>
       </div>
+
+      <slot name="navigation">
+        <TairoTopnavNavigation
+          v-if="topnavEnabled"
+          :display="props.display"
+          position="fixed"
+        >
+          <div
+            v-if="config?.navigation?.logo?.component"
+            class="flex h-16 w-full items-center gap-x-4"
+          >
+            <component
+              v-if="config?.navigation?.header?.component"
+              :is="
+                resolveComponentOrNative(config?.navigation?.header?.component)
+              "
+              v-bind="config?.navigation?.header?.props"
+            ></component>
+            <div class="flex items-center justify-center md:hidden">
+              <button type="button" @click="isMobileOpen = true">
+                <Icon name="lucide:menu" class="text-muted-400 h-6 w-6" />
+              </button>
+            </div>
+          </div>
+          <template #toolbar>
+            <div v-if="toolbarEnabled">
+              <div class="flex items-center justify-end gap-4 md:gap-2">
+                <DemoToolbarSearch />
+                <DemoToolbarNotifications />
+                <DemoToolbarLanguage />
+                <DemoAccountMenu />
+                <div v-if="authenticated">
+                  <ToolbarLogoutButton />
+                </div>
+                <div v-else>
+                  <ToolbarLoginButton />
+                </div>
+              </div>
+            </div>
+          </template>
+        </TairoTopnavNavigation>
+      </slot>
 
       <TairoPanels />
 

@@ -30,8 +30,10 @@ export const useAuthStore = defineStore('auth', {
       email,
     }: UserPayloadInterface) {
       // useFetch from nuxt 3
-      const { data, pending }: any = await useFetch(
-        'https://bittfurst.xyz/api/users/login',
+      const config = useRuntimeConfig()
+
+      const { data, pending, error } = await useFetch(
+        `${config.public.apiBase}/users/login`,
         {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
@@ -42,15 +44,24 @@ export const useAuthStore = defineStore('auth', {
           },
         },
       )
-      this.loading = pending
+      console.log('data', data.value)
+      console.log('pending', pending.value)
+      console.log('errors', error.value)
+      this.loading = pending.value
 
+      if (error.value) {
+        console.log('error', error.value)
+        this.authenticated = false
+      }
       if (data.value) {
         const token = useStorage('token', '')
         token.value = data?.value?.access_token
         console.log('user', data?.value)
         this.user = { ...data?.value }
+        this.authenticated = true
+      } else {
+        this.authenticated = false
       }
-      this.authenticated = true
     },
     async signUpUser({
       user_name,
@@ -60,8 +71,10 @@ export const useAuthStore = defineStore('auth', {
       password,
     }: NewUserInterface) {
       // useFetch from nuxt 3
+      const config = useRuntimeConfig()
+
       const { data, pending }: any = await useFetch(
-        'https://bittfurst.xyz/api/users',
+        `${config.public.apiBase}/users`,
         {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },

@@ -12,14 +12,6 @@ const { authenticated } = storeToRefs(useAuthStore()) // make authenticated stat
 definePageMeta({
   layout: 'empty',
   title: 'Login',
-  preview: {
-    title: 'Login 2',
-    description: 'For authentication and sign in',
-    categories: ['layouts', 'authentication'],
-    src: '/img/screens/auth-login-2.png',
-    srcDark: '/img/screens/auth-login-2-dark.png',
-    order: 97,
-  },
 })
 
 const VALIDATION_TEXT = {
@@ -45,7 +37,7 @@ const validationSchema = toTypedSchema(zodSchema)
 const initialValues = computed<FormInput>(() => ({
   email: 'matt@bittfurst.xyz',
   user_name: 'matt',
-  password: 'matt',
+  password: 'password',
   trustDevice: false,
 }))
 
@@ -63,7 +55,7 @@ const {
   validationSchema,
   initialValues,
 })
-const baseUrl = 'https://bittfurst.xyz/api'
+
 const router = useRouter()
 const toaster = useToaster()
 
@@ -71,10 +63,10 @@ const toaster = useToaster()
 const onSubmit = handleSubmit(async (values) => {
   await authenticateUser(values)
   // redirect to homepage if user is authenticated
-  if (authenticated) {
+  if (authenticated.value === true) {
     toaster.clearAll()
     toaster.show({
-      title: 'Success',
+      title: 'Successfully logged in!',
       message: `Welcome back!`,
       color: 'success',
       icon: 'ph:user-circle-fill',
@@ -85,7 +77,7 @@ const onSubmit = handleSubmit(async (values) => {
     toaster.clearAll()
     toaster.show({
       title: 'Error',
-      message: `Failed!`,
+      message: `Unable to login. Please try again.`,
       color: 'warning',
       icon: 'ph:user-circle-fill',
       closable: true,
@@ -138,43 +130,44 @@ const onSubmit = handleSubmit(async (values) => {
           >
             Welcome back.
           </BaseHeading>
-          <BaseParagraph size="sm" class="text-muted-400 mb-6">
-            Login with social media or your credentials
-          </BaseParagraph>
-          <!-- 	Social Sign Up Buttons	 -->
-          <div class="flex flex-wrap justify-between gap-4">
-            <!--Google button-->
-            <button
-              class="dark:bg-muted-700 text-muted-800 border-muted-300 dark:border-muted-600 nui-focus relative inline-flex grow items-center justify-center gap-2 rounded-xl border bg-white px-6 py-4 dark:text-white"
-            >
-              <Icon name="logos:google-icon" class="h-5 w-5" />
-              <div>Login with Google</div>
-            </button>
-            <!--Twitter button-->
-            <button
-              class="bg-muted-200 dark:bg-muted-700 hover:bg-muted-100 dark:hover:bg-muted-600 text-muted-600 dark:text-muted-400 nui-focus w-[calc(50%_-_0.5rem)] cursor-pointer rounded-xl px-5 py-4 text-center transition-colors duration-300 md:w-auto"
-            >
-              <Icon name="fa6-brands:twitter" class="mx-auto h-4 w-4" />
-            </button>
-            <!--Linkedin button-->
-            <button
-              class="bg-muted-200 dark:bg-muted-700 hover:bg-muted-100 dark:hover:bg-muted-600 text-muted-600 dark:text-muted-400 nui-focus w-[calc(50%_-_0.5rem)] cursor-pointer rounded-xl px-5 py-4 text-center transition-colors duration-300 md:w-auto"
-            >
-              <Icon name="fa6-brands:linkedin-in" class="mx-auto h-4 w-4" />
-            </button>
-          </div>
-          <!-- 'or' divider		 -->
-          <div class="flex-100 mt-8 flex items-center">
-            <hr
-              class="border-muted-200 dark:border-muted-700 flex-auto border-t-2"
-            />
-            <span class="text-muted-400 px-4 font-sans font-light"> OR </span>
-            <hr
-              class="border-muted-200 dark:border-muted-700 flex-auto border-t-2"
-            />
+          <div v-if="false">
+            <BaseParagraph size="sm" class="text-muted-400 mb-6">
+              Login with social media or your credentials
+            </BaseParagraph>
+            <!-- 	Social Sign Up Buttons	 -->
+            <div class="flex flex-wrap justify-between gap-4">
+              <!--Google button-->
+              <button
+                class="dark:bg-muted-700 text-muted-800 border-muted-300 dark:border-muted-600 nui-focus relative inline-flex grow items-center justify-center gap-2 rounded-xl border bg-white px-6 py-4 dark:text-white"
+              >
+                <Icon name="logos:google-icon" class="h-5 w-5" />
+                <div>Login with Google</div>
+              </button>
+              <!--Twitter button-->
+              <button
+                class="bg-muted-200 dark:bg-muted-700 hover:bg-muted-100 dark:hover:bg-muted-600 text-muted-600 dark:text-muted-400 nui-focus w-[calc(50%_-_0.5rem)] cursor-pointer rounded-xl px-5 py-4 text-center transition-colors duration-300 md:w-auto"
+              >
+                <Icon name="fa6-brands:twitter" class="mx-auto h-4 w-4" />
+              </button>
+              <!--Linkedin button-->
+              <button
+                class="bg-muted-200 dark:bg-muted-700 hover:bg-muted-100 dark:hover:bg-muted-600 text-muted-600 dark:text-muted-400 nui-focus w-[calc(50%_-_0.5rem)] cursor-pointer rounded-xl px-5 py-4 text-center transition-colors duration-300 md:w-auto"
+              >
+                <Icon name="fa6-brands:linkedin-in" class="mx-auto h-4 w-4" />
+              </button>
+            </div>
+            <!-- 'or' divider		 -->
+            <div class="flex-100 mt-8 flex items-center">
+              <hr
+                class="border-muted-200 dark:border-muted-700 flex-auto border-t-2"
+              />
+              <span class="text-muted-400 px-4 font-sans font-light"> OR </span>
+              <hr
+                class="border-muted-200 dark:border-muted-700 flex-auto border-t-2"
+              />
+            </div>
           </div>
         </div>
-
         <!--Form section-->
         <div class="mt-6">
           <div class="mt-5">

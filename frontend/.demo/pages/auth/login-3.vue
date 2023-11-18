@@ -79,7 +79,7 @@ const onSubmit = handleSubmit(async (values) => {
     toaster.clearAll()
     toaster.show({
       title: 'Success',
-      message: `Welcome back!`,
+      message: `Welcome back 6!`,
       color: 'success',
       icon: 'ph:user-circle-fill',
       closable: true,
@@ -134,7 +134,7 @@ const onSubmit = handleSubmit(async (values) => {
         </div>
         <div class="w-full">
           <BaseHeading as="h2" size="3xl" weight="medium">
-            Welcome back!
+            Welcome back asdfqwer!
           </BaseHeading>
           <BaseParagraph size="sm" class="text-muted-400 mb-6">
             Enter your account credentials to sign in

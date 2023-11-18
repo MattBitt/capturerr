@@ -18,7 +18,7 @@ definePageMeta({
 
 const VALIDATION_TEXT = {
   EMAIL_REQUIRED: 'A valid email is required',
-  PASSWORD_LENGTH: 'Password must be at least 8 characters',
+  PASSWORD_LENGTH: 'Password must be at least 4 characters',
   PASSWORD_CONTAINS_EMAIL: 'Password cannot contain your email',
   PASSWORD_MATCH: 'Passwords do not match',
   TERMS_REQUIRED: 'You must agree to the terms and conditions',
@@ -29,7 +29,7 @@ const VALIDATION_TEXT = {
 const zodSchema = z
   .object({
     email: z.string().email(VALIDATION_TEXT.EMAIL_REQUIRED),
-    password: z.string().min(8, VALIDATION_TEXT.PASSWORD_LENGTH),
+    password: z.string().min(4, VALIDATION_TEXT.PASSWORD_LENGTH),
     confirmPassword: z.string(),
     terms: z.boolean(),
   })
