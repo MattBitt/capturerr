@@ -1,0 +1,42 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name bittfurst.xyz www.bittfurst.xyz;
+    return 302 https://bittfurst.xyz/auth-basic/index.html;
+}
+
+server {
+
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    ssl_certificate         /etc/ssl/cert.pem;
+    ssl_certificate_key     /etc/ssl/key.pem;
+    auth_basic            "Please Enter your Credentials";
+    auth_basic_user_file  ".htpasswd";
+
+
+    server_name bittfurst.xyz www.bittfurst.xyz;
+
+    location / {
+              auth_basic off;
+              root /var/www/bittfurst.xyz/html/;
+              index index.html index.htm index.nginx-debian.html;
+        }
+
+
+     location /healthcheck {
+              proxy_pass http://capturerr:8081/healthcheck;
+     }
+
+     location /api/ {
+              auth_basic off;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_set_header Host $http_host;
+              # we don't want nginx trying to do something clever with
+              # redirects, we set the Host: header above already.
+              proxy_redirect off;
+              proxy_pass http://capturerr:8081/api/;
+     }
+
+}

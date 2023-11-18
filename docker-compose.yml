@@ -1,9 +1,8 @@
 version: '3.8'
 services:
   backend:
-    build: 
-      context: backend/.
-      dockerfile: Dockerfile
+    image: 
+      mattsbitt/capturerr-backend:0.1
     volumes:
       - ./backend:/app
     ports:
@@ -36,9 +35,8 @@ services:
 
 
   frontend:
-    build: 
-      context: frontend/.
-      dockerfile: Dockerfile
+    image:
+      mattsbitt/capturerr-frontend:0.1
     container_name: frontend
     deploy:
       restart_policy:
