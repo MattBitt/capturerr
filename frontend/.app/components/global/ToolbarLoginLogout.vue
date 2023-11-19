@@ -5,29 +5,13 @@ import { useAuthStore } from '~/stores/auth' // import the auth store we just cr
 const { authenticateUser } = useAuthStore() // use authenticateUser action from  auth store
 
 const { authenticated, user } = storeToRefs(useAuthStore()) // make authenticated state reactive with storeToRefs
-const { open } = usePanels()
-const config = useRuntimeConfig()
-console.log('Runtime config:', config)
-
-definePageMeta({
-  title: 'Capturerr',
-})
 </script>
 
 <template>
-  <div class="flex justify-center">
-    <div>
-      <CapturerrLogo />
-    </div>
+  <div v-if="authenticated">
+    <ToolbarLogoutButton />
   </div>
-
-  <div class="flex justify-center">
-    <div v-if="authenticated">
-      <UserLogo />
-      <BaseButton @click="open('mypanel')">Open Panel</BaseButton>
-    </div>
-    <div v-else>
-      <p>No user logged in</p>
-    </div>
+  <div v-else>
+    <ToolbarLoginButton />
   </div>
 </template>

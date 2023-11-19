@@ -1,5 +1,5 @@
 <template>
-  <TairoTopnavLayout>
+  <TairoSidebarLayout>
     <slot />
-  </TairoTopnavLayout>
+  </TairoSidebarLayout>
 </template>
