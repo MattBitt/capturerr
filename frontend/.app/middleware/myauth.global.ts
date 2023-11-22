@@ -18,4 +18,5 @@ export default defineNuxtRouteMiddleware((to, from) => {
     console.log('Not authenticated')
     return '/auth/login-1'
   }
+  console.log('Authenticated')
 })

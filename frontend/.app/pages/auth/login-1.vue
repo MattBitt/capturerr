@@ -3,11 +3,12 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { Field, useForm } from 'vee-validate'
 import { z } from 'zod'
 import { computed } from 'vue'
-import { useStorage } from '@vueuse/core'
+
 import { storeToRefs } from 'pinia' // import storeToRefs helper hook from pinia
 import { useAuthStore } from '~/stores/auth' // import the auth store we just created
-const { authenticateUser } = useAuthStore() // use authenticateUser action from  auth store
+const { authenticateUser } = useAuthStore()
 const { authenticated } = storeToRefs(useAuthStore()) // make authenticated state reactive with storeToRefs
+// import { logger } from '~/composables/logger'
 
 definePageMeta({
   layout: 'empty',
@@ -59,8 +60,9 @@ const {
 const router = useRouter()
 const toaster = useToaster()
 
-// This is where you would send the form data to the server
 const onSubmit = handleSubmit(async (values) => {
+  console.log('boring old log from handlesubmit')
+  // logger.info('in handleSubmit from login form using winston logger!')
   await authenticateUser(values)
   // redirect to homepage if user is authenticated
   if (authenticated.value === true) {
@@ -130,6 +132,7 @@ const onSubmit = handleSubmit(async (values) => {
           >
             Welcome back.
           </BaseHeading>
+          <!--   Enable when this functionality works-->
           <div v-if="false">
             <BaseParagraph size="sm" class="text-muted-400 mb-6">
               Login with social media or your credentials

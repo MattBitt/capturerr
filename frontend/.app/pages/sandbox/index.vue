@@ -1,4 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useMouse } from '~/composables/mouse'
+
+const { x, y } = useMouse()
+</script>
 
 <template>
   <form action="" method="POST" class="relative py-3 sm:mx-auto sm:max-w-xl">
@@ -33,6 +37,14 @@
               </BaseCard>
               <BaseCard class="p-6 m-6 text-center max-w-md">
                 <NuxtLink to="/sandbox/auth">Auth</NuxtLink>
+              </BaseCard>
+              <BaseCard class="p-6 m-6 text-center max-w-md">
+                <NuxtLink to="/sandbox/logging">Logging</NuxtLink>
+              </BaseCard>
+              <BaseCard class="p-6 m-6 text-center max-w-md">
+                <NuxtLink to="/sandbox/composable"
+                  >Composable ({{ x }}, {{ y }})</NuxtLink
+                >
               </BaseCard>
             </div>
           </div>

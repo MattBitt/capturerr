@@ -56,10 +56,6 @@ export default defineAppConfig({
         ],
       },
       navigation: {
-        logo: {
-          component: 'TairoLogo',
-          props: { class: 'text-primary-600 h-10' },
-        },
         items: [
           {
             title: 'Captures',
@@ -67,17 +63,7 @@ export default defineAppConfig({
             subsidebar: { component: 'SubsidebarCaptures' },
             activePath: '/captures',
           },
-          {
-            title: 'Layouts',
-            icon: { name: 'ph:app-window-duotone', class: 'w-5 h-5' },
-            subsidebar: { component: 'DemoSubsidebarLayouts' },
-            activePath: '/layouts',
-          },
-          {
-            title: 'Settings',
-            icon: { name: 'ph:gear-duotone', class: 'w-5 h-5' },
-            to: '/dashboards/messaging',
-          },
+
           {
             title: 'Customize',
             icon: { name: 'ph:drop-half-bottom-duotone', class: 'w-5 h-5' },
@@ -99,7 +85,7 @@ export default defineAppConfig({
           {
             title: 'Settings',
             icon: { name: 'ph:gear-six-duotone', class: 'w-5 h-5' },
-            to: '/layouts/profile-settings',
+            to: '/',
             position: 'end',
           },
           {

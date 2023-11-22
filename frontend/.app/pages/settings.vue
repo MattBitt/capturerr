@@ -4,35 +4,35 @@ definePageMeta({
 })
 
 import { useStorage } from '@vueuse/core'
+import { storeToRefs } from 'pinia' // import storeToRefs helper hook from pinia
+import { useAuthStore } from '~/stores/auth' // import the auth store we just created
+
+const { authenticateUser } = useAuthStore() // use authenticateUser action from  auth store
+
+const { authenticated, user } = storeToRefs(useAuthStore()) // make authenticated state reactive with storeToRefs
+const { open } = usePanels()
 
 const current_user = useStorage('current_user_id', '')
 const token = useStorage('token', '')
 
 const route = useRoute()
-
-const { data, pending, error, refresh } = await useFetch(
-  'http://localhost:8000/api/users/login',
-  {
-    pick: ['id', 'user_name', 'access_token'],
-    method: 'post',
-    body: {
-      email: 'matt@bittfurst.xyz',
-      password: 'matt',
-      user_name: 'matt',
-    },
-  },
-)
-
-if (data) {
-  console.log(data)
-}
-
-current_user.value = data.id
-token.value = data.access_token
+const config = useRuntimeConfig()
 </script>
 
 <template>
-  <h1>Settings Page</h1>
+  <TairoContentWrapper>
+    <h1>Settings Page</h1>
 
-  <input v-model="data.user_name" />
+    <template v-if="user">
+      <div>
+        <h2>Current User Id: {{ user.id }}</h2>
+        <h2>The data will be here</h2>
+      </div>
+    </template>
+    <template v-else>
+      <div>
+        <h2>dont think this should appear</h2>
+      </div>
+    </template>
+  </TairoContentWrapper>
 </template>

@@ -3,10 +3,6 @@ import { useStorage } from '@vueuse/core'
 import { storeToRefs } from 'pinia' // import storeToRefs helper hook from pinia
 import { useAuthStore } from '~/stores/auth' // import the auth store we just created
 
-const { authenticateUser } = useAuthStore() // use authenticateUser action from  auth store
-
-const { authenticated, user } = storeToRefs(useAuthStore())
-
 definePageMeta({
   title: 'Captures List',
 
@@ -19,9 +15,14 @@ definePageMeta({
     order: 68,
   },
 })
+
+const config = useRuntimeConfig()
+const { authenticated, user } = storeToRefs(useAuthStore())
+console.log('user', user.value)
+console.log(JSON.parse(JSON.stringify(user.value)))
 const token = useStorage('token', '')
-const { data, error, pending }: any = await useFetch(
-  'https://bittfurst.xyz/api/me/captures',
+const { data, error, pending } = await useFetch(
+  `${config.public.apiBase}/me/captures`,
   {
     method: 'GET',
     headers: {
@@ -36,25 +37,30 @@ const hasCaptures = computed(() => {
 })
 
 const mycaptures = computed(() => data.value)
+console.log('my captures: ', JSON.parse(JSON.stringify(mycaptures.value)))
 </script>
 
 <template>
-  <TairoContentWrapper>
-    <h1>Captures List</h1>
-    <h2>Current User Id: {{ user.user_id }}</h2>
-    <div v-if="hasCaptures === 'Yes'">
-      <span>You have captures</span>
-      <ul>
-        <li>Item #1</li>
-        <li v-for="capture in mycaptures" :key="capture.id">
-          {{ capture.entry }} - {{ capture.id }}
-        </li>
+  <div>
+    <TairoContentWrapper>
+      <h1>Captures List</h1>
+      <h2>Current User Id: {{ user.id }}</h2>
 
-        <li>Item #15</li>
-      </ul>
-    </div>
-    <div v-else>
-      <span>You have no captures</span>
-    </div>
-  </TairoContentWrapper>
+      <h2>Current User Name: {{ user.user_name }}</h2>
+      <div v-if="hasCaptures === 'Yes'">
+        <span>You have captures</span>
+        <ul>
+          <li>Item #1</li>
+          <li v-for="capture in mycaptures" :key="capture.id">
+            {{ capture.entry }} - {{ capture.id }}
+          </li>
+
+          <li>Item #15</li>
+        </ul>
+      </div>
+      <div v-else>
+        <span>You have no captures</span>
+      </div>
+    </TairoContentWrapper>
+  </div>
 </template>
