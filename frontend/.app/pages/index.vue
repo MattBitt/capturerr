@@ -6,6 +6,8 @@ const { authenticated, user } = storeToRefs(useAuthStore()) // make authenticate
 const { open } = usePanels()
 const config = useRuntimeConfig()
 
+const isSidebarOpen = useState('sidebar-open', () => true)
+
 console.info('App Config: ', config.app)
 console.info('Public Config: ', config.public)
 
@@ -26,9 +28,12 @@ definePageMeta({
       <div v-if="authenticated">
         <UserLogo />
         <BaseButton @click="open('mypanel')">Open Panel</BaseButton>
+        <BaseButton @click="isSidebarOpen = true">Open Sidebar</BaseButton>
+        <NuxtLink :to="`/captures/`" class="btn btn-primary">Captures</NuxtLink>
       </div>
       <div v-else>
         <p>No user logged in</p>
+        <NuxtLink :to="`/captures/`" class="btn btn-primary">Captures</NuxtLink>
       </div>
     </div>
   </div>

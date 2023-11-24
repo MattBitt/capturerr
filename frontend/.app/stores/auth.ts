@@ -42,9 +42,7 @@ export const useAuthStore = defineStore('auth', {
           },
         },
       )
-      console.log('data', data.value)
-      console.log('pending', pending.value)
-      console.log('errors', error.value)
+
       this.loading = pending.value
 
       if (error.value) {

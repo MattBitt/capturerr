@@ -198,10 +198,13 @@ const selectedEventFeatures = computed({
       return
     }
 
-    selectedEvent.value.features = values.reduce((acc, value) => {
-      acc[value] = true
-      return acc
-    }, {} as Record<string, boolean>)
+    selectedEvent.value.features = values.reduce(
+      (acc, value) => {
+        acc[value] = true
+        return acc
+      },
+      {} as Record<string, boolean>,
+    )
   },
 })
 </script>

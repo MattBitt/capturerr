@@ -89,6 +89,15 @@ export default defineAppConfig({
             position: 'end',
           },
           {
+            title: 'Expand Sidebar',
+            icon: { name: 'ph:arrow-arc-right-duotone', class: 'w-5 h-5' },
+            click: () => {
+              const isOpen = useState('sidebar-open', () => false)
+              isOpen.value = true
+            },
+            position: 'end',
+          },
+          {
             title: 'My Account',
             component: 'DemoAccountMenu',
             position: 'end',
