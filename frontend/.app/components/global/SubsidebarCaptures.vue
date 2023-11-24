@@ -78,10 +78,6 @@ const navigation = [
 
 <template>
   <TairoSubsidebar>
-    <template #header>
-      <UserLogo />
-    </template>
-
     <TairoSubsidebarMenu :navigation="navigation" />
   </TairoSubsidebar>
 </template>

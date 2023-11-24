@@ -1,33 +1,46 @@
-<script setup>
-import { useAuthStore } from '~/stores/auth' // import the auth store we just created
-
-const props = defineProps({
-  capture,
-})
-console.log('in setup.  this is the props passed in: ', props)
-const { user } = storeToRefs(useAuthStore())
-
-const handler = () => {
-  console.log('In handler for Capture Card')
-  console.log('capture passed in: ', props.value.capture)
-  router.push(`/captures/${props.value.capture.id}`)
-}
-
-console.log(props.capture)
-</script>
-
 <template>
-  <div>
-    <div
-      @click="handler"
-      class="border-danger-200 dark:border-danger-700 flex flex-col items-center border p-6 bg-muted-800"
-    >
-      <span class="text-2xl font-bold text-primary-900 dark:text-primary-100">
-        {{ capture?.entry }}
-      </span>
-      <span class="text-1xl font-bold text-primary-900 dark:text-primary-100">
-        {{ capture?.notes }}
-      </span>
-    </div>
+  <div class="flex flex-wrap justify-center mt-6">
+    <NuxtLink :to="`/captures/${capture.id}`">
+      <div class="p-2 max-w-md">
+        <div
+          class="flex rounded-lg h-full dark:bg-gray-800 bg-primary-400 p-8 flex-col"
+        >
+          <div class="flex items-center mb-3">
+            <div
+              class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full dark:bg-indigo-500 bg-indigo-500 text-white flex-shrink-0"
+            >
+              <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+              >
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+            </div>
+            <h2 class="text-white dark:text-white text-lg font-medium">
+              Feature 1.1
+            </h2>
+          </div>
+          <div class="flex flex-col justify-between flex-grow">
+            <p class="leading-5 text-lg text-white dark:text-primary-500 mb-5">
+              {{ capture.entry }}
+            </p>
+            <p class="leading-relaxed text-blue dark:text-yellow-500 text-sm">
+              {{ capture.notes }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </NuxtLink>
   </div>
 </template>
+<script setup>
+const props = defineProps({
+  capture: Object,
+})
+const capture = { ...props.capture }
+</script>

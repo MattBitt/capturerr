@@ -45,6 +45,9 @@ const { x, y } = useMouse()
                 <NuxtLink to="/sandbox/home">Posts Home</NuxtLink>
               </BaseCard>
               <BaseCard class="p-6 m-6 text-center max-w-md">
+                <NuxtLink to="/sandbox/masonry">Masonry</NuxtLink>
+              </BaseCard>
+              <BaseCard class="p-6 m-6 text-center max-w-md">
                 <NuxtLink to="/sandbox/composable"
                   >Composable ({{ x }}, {{ y }})</NuxtLink
                 >
