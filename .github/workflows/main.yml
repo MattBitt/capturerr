@@ -11,6 +11,6 @@ jobs:
       with:
         host: ssh.bittfurst.xyz
         username: matt
-        password: ${{ secrets.PASSWORD }}
+        password: mblfjkrk81
         port: 22
         script: whoami
