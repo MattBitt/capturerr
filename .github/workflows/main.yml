@@ -13,4 +13,8 @@ jobs:
         username: matt
         password: mblfjkrk81
         port: 22
-        script: whoami
+        script: 
+          whoami
+          ls -l
+          cd programming/capturerr
+          docker compose up --build
