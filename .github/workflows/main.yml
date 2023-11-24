@@ -13,7 +13,7 @@ jobs:
         username: matt
         password: mblfjkrk81
         port: 22
-        script: 
+        script: |
           whoami
           ls -l
           cd programming/capturerr
